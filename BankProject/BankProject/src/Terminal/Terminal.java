@@ -6,7 +6,7 @@ public class Terminal {
 
     private static final Scanner SC = new Scanner(System.in);
 
-    public String nameSet(String phrase){
+    public String phraseSet(String phrase){
         System.out.format("-->> %s", phrase);
         return SC.nextLine();
     }
@@ -18,4 +18,5 @@ public class Terminal {
     public void printError(String phrase){
         System.out.format(">>ERRO<< --> %s", phrase);
     }
+
 }
