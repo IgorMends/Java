@@ -1,12 +1,16 @@
 package Controller.phases;
+import DataBase.Account;
 import Terminal.Terminal;
 
 public class MainPhase {
 
     private final Terminal terminal;
+    private final AccountController accountController;
+    public static final String LIST_FORMAT = "|%1$-10s|%2$-15s|%3$-15s|%4$-15s|%5$-15s|\n";
 
-    public MainPhase(Terminal terminal){
+    public MainPhase(Terminal terminal, AccountController accountController){
         this.terminal = terminal;
+        this.accountController = accountController;
     }
 
     public void entryPage(){
@@ -41,7 +45,6 @@ public class MainPhase {
     }
 
     public void choicePage(){
-        RegisterPhase registerPhase = new RegisterPhase(terminal);
 
         System.out.println(">>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<");
         System.out.println("^         Selecione uma Opção        ^");
@@ -60,11 +63,51 @@ public class MainPhase {
                 break;
             case "N":
                 terminal.clearTerminal();
-                registerPhase.registerPage();
+                registerPage();
                 break;
             case "X":
                 terminal.clearTerminal();
                 entryPage();
+                break;
+        }
+    }
+
+    public void registerPage(){
+        terminal.clearTerminal();
+
+        System.out.println(">>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<");
+        System.out.println("^                                    ^");
+        System.out.println("^              Register              ^");
+        System.out.println("^                                    ^");
+        System.out.println(">>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<");
+
+        Account account = new Account();
+
+        account.setName(terminal.phraseSet("Nome: "));
+        account.setPassword(terminal.phraseSet("Senha: "));
+        account.setAge(terminal.doubleSet("Idade: "));
+        account.setBallance(terminal.doubleSet("Saldo inicial: "));
+
+        System.out.println();
+        System.out.println();
+
+        System.out.println(">>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<");
+        System.out.println("^         Selecione uma Opção        ^");
+        System.out.println(">>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<");
+        System.out.println("^   [E]   ^          Salvar          ^");
+        System.out.println("^   [X]   ^          Voltar          ^");
+        System.out.println(">>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<");
+
+        String choice = terminal.phraseSet("Digite uma Opção: ");
+        choice = choice.toUpperCase();
+
+        switch(choice){
+            case "E":
+                accountController.create(account);
+                break;
+            case "X":
+                terminal.clearTerminal();
+                choicePage();
                 break;
         }
     }
