@@ -15,5 +15,14 @@ public class AccountsDB {
         return database;
     }
 
+    public Account getByName(String name){
+        for (Account account:database) {
+            if(account.getName().equalsIgnoreCase(name)){
+                return account;
+            }
+        }
+        return null;
+    }
+
 
 }

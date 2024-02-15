@@ -11,6 +11,15 @@ public class Terminal {
         return SC.nextLine();
     }
 
+    public String phraseSet(){
+        return SC.nextLine();
+    }
+
+    public String phraseSetline(String phrase){
+        System.out.format("-->> %s", phrase);
+        return SC.next();
+    }
+
     public double doubleSet(String phrase){
         System.out.format("-->> %s", phrase);
         return SC.nextDouble();

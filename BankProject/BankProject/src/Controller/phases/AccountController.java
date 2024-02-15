@@ -15,4 +15,12 @@ public class AccountController {
         //validator
         accountsDB.save(account);
     }
+
+    public Account[] getAll(){
+        return accountsDB.getDatabase();
+    }
+
+    public Account getByName(String name){
+        return accountsDB.getByName(name);
+    }
 }
