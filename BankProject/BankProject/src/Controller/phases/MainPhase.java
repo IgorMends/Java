@@ -1,13 +1,11 @@
 package Controller.phases;
 import DataBase.Account;
-import DataBase.AccountsDB;
 import Terminal.Terminal;
 
 public class MainPhase {
 
     private final Terminal terminal;
     private final AccountController accountController;
-    public static final String LIST_FORMAT = "|%1$-10s|%2$-15s|%3$-15s|%4$-15s|%5$-15s|\n";
 
     public MainPhase(Terminal terminal, AccountController accountController){
         this.terminal = terminal;
@@ -34,7 +32,6 @@ public class MainPhase {
 
         switch (choice){
             case "C":
-                terminal.clearTerminal();
                 choicePage();
                 break;
             case "X":
@@ -46,6 +43,7 @@ public class MainPhase {
     }
 
     public void choicePage(){
+        terminal.clearTerminal();
         System.out.println(">>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<");
         System.out.println("^         Selecione uma Opção        ^");
         System.out.println(">>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<");
@@ -104,10 +102,8 @@ public class MainPhase {
         switch(choice){
             case "E":
                 accountController.create(account);
-                terminal.clearTerminal();
                 break;
             case "X":
-                terminal.clearTerminal();
                 break;
         }
         choicePage();
@@ -127,10 +123,6 @@ public class MainPhase {
         Account account = accountController.getByName(name);
         if(account == null){
             terminal.phrasePrint("Esta conta não existe");
-            terminal.phrasePrint("Pressione quaquer tecla para voltar ao menu!");
-            String back = terminal.phraseSet();
-            terminal.clearTerminal();
-            choicePage();
         }
         else{
             String password = terminal.phraseSet("Senha: ");
@@ -138,26 +130,21 @@ public class MainPhase {
                 terminal.clearTerminal();
                 System.out.println(">>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<");
                 System.out.println("^                                    ^");
-                System.out.printf("^                 %s                 ^", account.getName());
+                System.out.println("^                User                ^");
                 System.out.println("^                                    ^");
                 System.out.println(">>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<");
                 terminal.phrasePrint("Nome: " + account.getName());
                 terminal.phrasePrint("Idade: " + account.getAge());
                 terminal.phrasePrint("Saldo: " + account.getBallance());
 
-                terminal.phrasePrint("Pressione quaquer tecla para voltar ao menu!");
-                terminal.clearTerminal();
-                String back = terminal.phraseSet();
-                choicePage();
             }
             else{
                 terminal.phrasePrint("Senha incorreta!");
-                terminal.phrasePrint("Pressione quaquer tecla para voltar ao menu!");
-                String back = terminal.phraseSet();
-                terminal.clearTerminal();
-                choicePage();
             }
         }
+        terminal.phrasePrint("\nPressione quaquer tecla para voltar ao menu!");
+        String back = terminal.phraseSet();
+        choicePage();
 
     }
 }

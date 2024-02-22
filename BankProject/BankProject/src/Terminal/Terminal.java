@@ -4,25 +4,27 @@ import java.util.Scanner;
 
 public class Terminal {
 
-    private static final Scanner SC = new Scanner(System.in);
-
     public String phraseSet(String phrase){
+        Scanner scanner = new Scanner(System.in);
         System.out.format("-->> %s", phrase);
-        return SC.nextLine();
+        return scanner.nextLine();
     }
 
     public String phraseSet(){
-        return SC.nextLine();
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
     }
 
     public String phraseSetline(String phrase){
+        Scanner scanner = new Scanner(System.in);
         System.out.format("-->> %s", phrase);
-        return SC.next();
+        return scanner.next();
     }
 
     public double doubleSet(String phrase){
+        Scanner scanner = new Scanner(System.in);
         System.out.format("-->> %s", phrase);
-        return SC.nextDouble();
+        return scanner.nextDouble();
     }
 
     public void phrasePrint(String phrase){
