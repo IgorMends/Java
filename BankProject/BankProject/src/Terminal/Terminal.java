@@ -10,7 +10,7 @@ public class Terminal {
         return scanner.nextLine();
     }
 
-    public String phraseSet(){
+    public String waiter(){
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
@@ -19,6 +19,12 @@ public class Terminal {
         Scanner scanner = new Scanner(System.in);
         System.out.format("-->> %s", phrase);
         return scanner.next();
+    }
+
+    public int intSet(String phrase){
+        Scanner scanner = new Scanner(System.in);
+        System.out.format("-->> %s", phrase);
+        return scanner.nextInt();
     }
 
     public double doubleSet(String phrase){
@@ -31,8 +37,12 @@ public class Terminal {
         System.out.format("-->> %s\n", phrase);
     }
 
+    public void skipLine(){
+        System.out.println();
+    }
+
     public void printError(String phrase){
-        System.out.format(">>ERRO<< --> %s", phrase);
+        System.out.format(">>ERRO<< -->> %s\n", phrase);
     }
 
     public void clearTerminal(){

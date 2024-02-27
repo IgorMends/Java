@@ -1,15 +1,19 @@
-package Controller.phases;
+package Terminal;
+import Controller.phases.AccountController;
 import DataBase.Account;
-import Terminal.Terminal;
+import Validation.Validator;
+
 
 public class MainPhase {
 
     private final Terminal terminal;
     private final AccountController accountController;
+    private final Validator validator;
 
-    public MainPhase(Terminal terminal, AccountController accountController){
+    public MainPhase(Terminal terminal, AccountController accountController, Validator validator){
         this.terminal = terminal;
         this.accountController = accountController;
+        this.validator = validator;
     }
 
     public void entryPage(){
@@ -23,15 +27,16 @@ public class MainPhase {
         System.out.println(">>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<");
         System.out.println("^         Selecione uma Opção        ^");
         System.out.println(">>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<");
-        System.out.println("^   [C]   ^          Entrar          ^");
+        System.out.println("^   [E]   ^          Entrar          ^");
         System.out.println("^   [X]   ^           Sair           ^");
         System.out.println(">>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<");
 
         String choice = terminal.phraseSet("Digite uma opção: ");
+        choice = validator.choiceValidator("E", "X", choice);
         choice = choice.toUpperCase();
 
         switch (choice){
-            case "C":
+            case "E":
                 choicePage();
                 break;
             case "X":
@@ -53,6 +58,7 @@ public class MainPhase {
         System.out.println(">>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<");
 
         String choice = terminal.phraseSet("Digite uma opção: ");
+        choice = validator.choiceValidator("E", "N", "X", choice);
         choice = choice.toUpperCase();
 
         switch (choice) {
@@ -83,8 +89,27 @@ public class MainPhase {
 
         account.setName(terminal.phraseSet("Nome: "));
         account.setPassword(terminal.phraseSet("Senha: "));
-        account.setAge(terminal.doubleSet("Idade: "));
-        account.setBallance(terminal.doubleSet("Saldo inicial: "));
+
+        while(true) {
+            try {
+                account.setAge(terminal.intSet("Idade: "));
+                break;
+            } catch (Exception ex) {
+                terminal.printError("Apenas números");
+            }
+        }
+
+        boolean flag = false;
+
+        while(true) {
+            try {
+                account.setBallance(terminal.doubleSet("Saldo inicial: "));
+                break;
+            } catch (Exception ex) {
+                terminal.printError("Apenas números");
+            }
+        }
+
 
         System.out.println();
         System.out.println();
@@ -96,7 +121,8 @@ public class MainPhase {
         System.out.println("^   [X]   ^          Voltar          ^");
         System.out.println(">>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<");
 
-        String choice = terminal.phraseSetline("Digite uma Opção: ");
+        String choice = terminal.phraseSetline("Digite uma opção: ");
+        choice = validator.choiceValidator("E", "X", choice);
         choice = choice.toUpperCase();
 
         switch(choice){
@@ -135,15 +161,15 @@ public class MainPhase {
                 System.out.println(">>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<");
                 terminal.phrasePrint("Nome: " + account.getName());
                 terminal.phrasePrint("Idade: " + account.getAge());
-                terminal.phrasePrint("Saldo: " + account.getBallance());
+                terminal.phrasePrint("Saldo: R$ " + account.getBallance());
 
             }
             else{
                 terminal.phrasePrint("Senha incorreta!");
             }
         }
-        terminal.phrasePrint("\nPressione quaquer tecla para voltar ao menu!");
-        String back = terminal.phraseSet();
+        terminal.phrasePrint("Pressione quaquer tecla para voltar ao menu!");
+        String back = terminal.waiter();
         choicePage();
 
     }

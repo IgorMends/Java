@@ -4,7 +4,7 @@ public class Account {
 
     private String name;
     private String password;
-    private double age;
+    private int age;
     private double ballance;
 
     public String getName(){
@@ -23,11 +23,11 @@ public class Account {
         this.password = password;
     }
 
-    public double getAge(){
+    public int getAge(){
         return age;
     }
 
-    public void setAge(double age){
+    public void setAge(int age){
         this.age = age;
     }
 
